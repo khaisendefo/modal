@@ -12,21 +12,58 @@
       margin: 0;
       padding: 0;
     }
+    section {
+      height: 100vh;
+    }
+    .no-scroll {
+      overflow: hidden;
+    }
     .modal {
       position: fixed;
       top: 0; 
       right: 0;
       width: 100%;
       height: 100%;
+      display: none;
+      z-index: 100000;
+    }
+
+    .modal--active {
+      display: block;
     }
 
     .modal__overlay {
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
       width: 100%;
       height: 100%;
       background-color: #000000bb;
+    }
+
+    .modal__close {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      background-color: #fff; 
+      border: none;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all .3s;
+    }
+
+    .modal__close svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .modal__close:hover {
+      opacity: 0.7;
     }
 
     .modal__window {
@@ -131,12 +168,19 @@
   </style>
   <div class="modal">
     <div class="modal__overlay">
+      <button class="modal__close">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"> 
+          <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+        </svg>
+      </button>
       <div class="modal__window">
         <div class="modal__head">
           <h2 class="modal__head-title">Сайт закончился, но вопросы могли остаться!</h2>
           <p class="modal__head-description">Заполните заявку и менеджер перезвонит вам в ближайшее время</p>
         </div>
-        <form class="modal__form" action="">
+        <form class="modal__form form" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="2a529890-d072-4e5f-ad4b-b35ea73b1f0d">
+          <input type="hidden" name="subject" value="Заявка с сайта">
           <label class="modal__form-label" for="">
             <input class="modal__form-input" name="Имя" type="text" placeholder="Введите имя" required>
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="409.165px" height="409.164px" viewBox="0 0 409.165 409.164" style="enable-background:new 0 0 409.165 409.164;" xml:space="preserve">
@@ -145,7 +189,7 @@
             </svg>
           </label>
           <label class="modal__form-label" for="">
-            <input class="modal__form-input" name="Имя" type="tel" placeholder="Введите телефон" required>
+            <input class="modal__form-input" name="Телефон" type="tel" placeholder="Введите телефон" required>
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 384 384" style="enable-background:new 0 0 384 384;" xml:space="preserve">
               <path d="M353.188,252.052c-23.51,0-46.594-3.677-68.469-10.906c-10.719-3.656-23.896-0.302-30.438,6.417l-43.177,32.594    c-50.073-26.729-80.917-57.563-107.281-107.26l31.635-42.052c8.219-8.208,11.167-20.198,7.635-31.448    c-7.26-21.99-10.948-45.063-10.948-68.583C132.146,13.823,118.323,0,101.333,0H30.813C13.823,0,0,13.823,0,30.813    C0,225.563,158.438,384,353.188,384c16.99,0,30.813-13.823,30.813-30.813v-70.323C384,265.875,370.177,252.052,353.188,252.052z"/>
             </svg>
@@ -159,5 +203,10 @@
       </div>
     </div>
   </div>
+  <section></section>
+  <section></section>
+  <section></section>
+  <section></section>
+  <script src="script.js"></script>
 </body>
 </html>
