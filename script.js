@@ -1,27 +1,25 @@
-
 const modal = document.querySelector('.modal');
 const closeModalButton = document.querySelector('.modal__close');
 const modalOverlay = document.querySelector('.modal__overlay');
 const body = document.querySelector('body');
 
-let modalOpened = false; 
-let mouseIdle = false; 
-let idleTimer; 
-let openedByIdle = false; 
+let modalOpened = false;
+let idleTimer;
+let openedByIdle = false;
 let openedByScroll = false;
 
 function openModal() {
   if (!modalOpened) {
     modal.classList.add('modal--active');
     body.classList.add('no-scroll');
-    modalOpened = true; 
+    modalOpened = true;
   }
 }
 
 function closeModal() {
   modal.classList.remove('modal--active');
   body.classList.remove('no-scroll');
-  modalOpened = false; 
+  modalOpened = false;
 }
 
 closeModalButton.addEventListener('click', closeModal);
@@ -39,35 +37,40 @@ document.addEventListener('keydown', (e) => {
 function startIdleTimer() {
   idleTimer = setTimeout(() => {
     if (!modalOpened && !openedByIdle) {
-      openModal(); 
-      openedByIdle = true; 
+      openModal();
+      openedByIdle = true;
     }
-  }, 5000);
+  }, 3000);
 }
 
 function resetIdleTimer() {
   clearTimeout(idleTimer);
-  mouseIdle = false; 
   startIdleTimer(); 
 }
 
 window.addEventListener('mousemove', () => {
-  resetIdleTimer(); 
+  resetIdleTimer(); // Сбрасываем таймер при движении мыши
 });
 
 window.addEventListener('scroll', () => {
+  resetIdleTimer(); // Сбрасываем таймер при скролле
+
   const scrollTop = window.scrollY;
   const viewportHeight = window.innerHeight;
   const documentHeight = document.body.offsetHeight;
+
+  // Проверка, дошел ли пользователь до конца страницы
   if (scrollTop + viewportHeight >= documentHeight) {
     if (!modalOpened && !openedByScroll) {
       openModal();
-      openedByScroll = true; 
+      openedByScroll = true;
     }
   }
 });
 
+// Запускаем таймер отслеживания неактивности
 startIdleTimer();
+
 
 var forms = document.querySelectorAll('.form');
 forms.forEach(function(form) {
@@ -79,24 +82,20 @@ forms.forEach(function(form) {
       method: "POST",
       body: formData
     })
-
     .then(response => {
       if (!response.ok) {
         throw new Error("Ошибка отправки данных: " + response.status);
       }
       return response.json();
     })
-
     .then(data => {
-      alert("Данные успешно отправлены!"); 
-      console.log(data);
-      this.reset();
+      form.reset(); // Сбрасываем форму перед редиректом
+      window.location.href = 'https://ya.ru/'; // Перенаправляем на страницу благодарности
     })
-
     .catch(error => {
       alert("Ошибка отправки данных: " + error.message);
       console.error(error);
     });
-
   });
 });
+
